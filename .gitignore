@@ -1,0 +1,6 @@
+save/
+build/
+
+*.a
+*.o
+*.d
