@@ -1,6 +1,6 @@
 #include "common.h"
 
-int fileOpen(FILE **fp, const char *name)
+int getFileStatus(FILE **fp, const char *name)
 {
 	if ((*fp = fopen(name, "r")) == NULL)
 	{

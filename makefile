@@ -31,6 +31,6 @@ clean:
 	rm -r $(BUILD_DIR)
 
 save:
-	mkdir -p save/
+	mkdir -p build/cache/
 
 -include $(DEPS)

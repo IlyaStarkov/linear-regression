@@ -1,4 +1,4 @@
-save/
+cache/
 build/
 
 *.a
