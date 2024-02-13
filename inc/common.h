@@ -3,6 +3,8 @@
 
 #include <stdio.h>
 #include <ctype.h>
+#include <stdlib.h>
+#include <string.h>
 
 #define INIT_PATH "cache/init.init"
 #define FIT_PATH "cache/fit.fit"
@@ -13,5 +15,6 @@
 
 int getFileStatus(FILE **fp, const char *name);
 int fileCreate(FILE **fp, const char *name);
+void saveStringArg(char **dist, char* arg);
 
 #endif

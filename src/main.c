@@ -3,6 +3,7 @@
 #include "common.h"
 #include "getopt.h"
 #include "model.h"
+#include "data_loader.h"
 
 FILE *init;
 FILE *fit;
@@ -23,11 +24,12 @@ const struct option long_init_options[] =
 };
 
 //fit options
-const char short_fit_options[] = "hy:";
+const char short_fit_options[] = "hy:s:";
 const struct option long_fit_options[] =
 {
 	{"help", no_argument, NULL, 'h'},
  	{"target", required_argument, NULL, 'y'},
+	{"separator", required_argument, NULL, 's'},
  	{"clear", no_argument, NULL, '1'},
  	{"dataset", required_argument, NULL, '2'},
  	{NULL, 0, NULL, 0}
@@ -35,7 +37,6 @@ const struct option long_fit_options[] =
 
 //predict options
 
-char type[49] = "unknown";
 
 int main(int argc, char *const *argv)
 {
@@ -121,6 +122,11 @@ int main(int argc, char *const *argv)
 
 	else if (INIT_DONE_NO_FIT)	// fit
 	{
+		
+		FILE *input_file;
+		//DATASET dataset;
+		char *dataset_name, *target_name, *separator = NULL;
+
 		do
 		{
 
@@ -136,7 +142,15 @@ int main(int argc, char *const *argv)
 
 				case 'y':
 				{
-					printf("%s\n", "_name of csv col that is target_");
+					saveStringArg(&target_name, optarg);
+					//printf("%s\n", target_name);
+					break;
+				}
+
+				case 's':
+				{
+					saveStringArg(&separator, optarg);
+					//printf("%s\n", separator);
 					break;
 				}
 
@@ -156,7 +170,18 @@ int main(int argc, char *const *argv)
 
 				case '2':
 				{
-					printf("%s\n", "_path to csv_");
+
+					if (getFileStatus(&input_file, optarg))
+					{
+						printf("%s\n", "linreg: cannot open the file");
+						return 0;
+					}
+					else
+					{
+						saveStringArg(&dataset_name, optarg);
+						//printf("%s\n", dataset_name);				
+					}
+
 					break;
 				}
 
@@ -175,6 +200,8 @@ int main(int argc, char *const *argv)
 			return 0;
 		}
 
+		/*check dataset*/
+		//getDatasetInfo(&dataset, dataset_name);
 
 		//START FIT
 

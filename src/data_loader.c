@@ -1,11 +1,9 @@
 #include "data_loader.h"
-#include <stdlib.h>
-#include <string.h>
 
-int getColNames(char ***col, const char *dataset, const char *sep)
+int getColNames(char ***col, const char *file_name, const char *sep)
 {
 	FILE *fp;
-	if ((fp = fopen(dataset, "r")) == NULL)
+	if ((fp = fopen(file_name, "r")) == NULL)
 	{
 		fclose(fp);
     	return NOT_EXIST;
@@ -14,6 +12,7 @@ int getColNames(char ***col, const char *dataset, const char *sep)
 	int num_sym_in_header, col_num, c;
 	num_sym_in_header = -1; //without CRLF
 	col_num = 1;
+	c = '\0';
 
 	while (c != '\n')
 	{
@@ -50,3 +49,8 @@ int getColNames(char ***col, const char *dataset, const char *sep)
 
 	return 0;
 }
+
+/*int getDatasetInfo(DATASET *dataset, char *file_name)
+{
+
+}*/
