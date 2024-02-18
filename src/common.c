@@ -24,3 +24,9 @@ void saveStringArg(char **dist, char* arg)
 	*dist = name;
 	return;
 }
+
+void error(const char *report)
+{
+	printf("%s\n", report);
+	exit(EXIT_SUCCESS);
+}

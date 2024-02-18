@@ -16,5 +16,6 @@
 int getFileStatus(FILE **fp, const char *name);
 int fileCreate(FILE **fp, const char *name);
 void saveStringArg(char **dist, char* arg);
+void error(const char *report);
 
 #endif

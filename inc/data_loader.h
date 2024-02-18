@@ -5,15 +5,9 @@
 #include <string.h>
 #include <stdio.h>
 
-typedef struct HEADER
-{
-	char **col_names;
-	char *target;
-} HEADER;
-
 typedef struct DATASET
 {
-	HEADER header;
+	char **col_names;
 	unsigned int num_col;
 	unsigned int num_rows;
 } DATASET;
@@ -22,7 +16,7 @@ typedef struct DATASET
 #define INVALID_SEPARATOR 2
 
 
-int getDatasetInfo(DATASET *dataset, char *file_name);
-int getColNames(char ***col, const char *file_name, const char *sep);
+int getDatasetInfo(DATASET *dataset, char *file_name, char *sep);
+int findTarget(char **col_names, char *target);
 
 #endif

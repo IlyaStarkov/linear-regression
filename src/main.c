@@ -110,8 +110,7 @@ int main(int argc, char *const *argv)
 
 		if (check_invalid_argument > 1)
 		{
-			printf("%s\n", "linreg: param is invalid");
-			return 0;
+			error("linreg: param is invalid");
 		}
 		fileCreate(&init, INIT_PATH);
 		loadConfig(&init, &params);
@@ -124,7 +123,7 @@ int main(int argc, char *const *argv)
 	{
 		
 		FILE *input_file;
-		//DATASET dataset;
+		DATASET dataset;
 		char *dataset_name, *target_name, *separator = NULL;
 
 		do
@@ -173,13 +172,11 @@ int main(int argc, char *const *argv)
 
 					if (getFileStatus(&input_file, optarg))
 					{
-						printf("%s\n", "linreg: cannot open the file");
-						return 0;
+						error("linreg: cannot open the file");
 					}
 					else
 					{
-						saveStringArg(&dataset_name, optarg);
-						//printf("%s\n", dataset_name);				
+						saveStringArg(&dataset_name, optarg);				
 					}
 
 					break;
@@ -196,12 +193,28 @@ int main(int argc, char *const *argv)
 
 		if (check_invalid_argument > 1)
 		{
-			printf("%s\n", "linreg: param is invalid");
-			return 0;
+			error("linreg: param is invalid");
 		}
 
 		/*check dataset*/
-		//getDatasetInfo(&dataset, dataset_name);
+		if (getDatasetInfo(&dataset, dataset_name, separator) == INVALID_SEPARATOR)
+		{
+			error("linreg: separator is invalid");
+		}
+
+		int is_target = findTarget(dataset.col_names, target_name);
+
+		if (is_target == 0)
+		{
+			error("linreg: target not found");
+		}
+
+		else if (is_target > 1)
+		{
+			error("linreg: there must be only one target column");
+		}
+
+		//LOAD DATA
 
 		//START FIT
 
