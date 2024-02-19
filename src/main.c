@@ -126,6 +126,15 @@ int main(int argc, char *const *argv)
 		DATASET dataset;
 		char *dataset_name, *target_name, *separator = NULL;
 
+		double **X = NULL;
+		double *y = NULL;
+
+		if (argc == 1)
+		{
+			printf("%s\n", "__help__");
+			return 0;
+		}
+
 		do
 		{
 
@@ -202,7 +211,7 @@ int main(int argc, char *const *argv)
 			error("linreg: separator is invalid");
 		}
 
-		int is_target = findTarget(dataset.col_names, target_name);
+		int is_target = findTarget(&dataset, target_name);
 
 		if (is_target == 0)
 		{
@@ -213,8 +222,15 @@ int main(int argc, char *const *argv)
 		{
 			error("linreg: there must be only one target column");
 		}
-
+		
 		//LOAD DATA
+
+		int loader_report = loadData(&dataset, &X, &y);
+
+		if (loader_report == INVALID_DATA)
+		{
+			error("linreg: there must be no text data in the input file");
+		}
 
 		//START FIT
 
